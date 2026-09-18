@@ -1,134 +1,126 @@
 import { Link } from 'react-router-dom';
 import { SITE, whatsappUrl, telUrl } from '@/lib/site';
 
+const farmLinks = [
+  { to: '/about', label: 'About us' },
+  { to: '/dairy-farming', label: 'Dairy farming' },
+  { to: '/farm', label: 'The farm' },
+  { to: '/sustainability', label: 'Sustainability' },
+  { to: '/blog', label: 'Journal' },
+];
+
+const shopLinks = [
+  { to: '/shop', label: 'Farm Shop' },
+  { to: '/products', label: 'Our products' },
+  { to: '/cart', label: 'Cart' },
+  { to: '/contact', label: 'Contact' },
+];
+
+const legalLinks = [
+  { to: '/privacy-policy', label: 'Privacy' },
+  { to: '/terms', label: 'Terms' },
+  { to: '/shipping-delivery', label: 'Delivery' },
+  { to: '/returns-refunds', label: 'Returns' },
+];
+
 export function Footer() {
   return (
     <footer className="bg-forest-900 text-forest-100">
-      <div className="container-page section-padding">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-3">
-              <img
-                src={SITE.logo}
-                alt={SITE.name}
-                className="h-14 w-auto"
-                width={80}
-                height={70}
-              />
-            </div>
-            <p className="mt-4 text-sm leading-relaxed text-forest-200">
-              A Kenyan dairy farm focused on quality milk and farm products,
-              produced with care for animals, land, and the people we serve.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-white">
-              Explore
-            </h4>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>
-                <Link to="/about" className="hover:text-white transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link to="/dairy-farming" className="hover:text-white transition-colors">
-                  Dairy Farming
-                </Link>
-              </li>
-              <li>
-                <Link to="/farm" className="hover:text-white transition-colors">
-                  Our Farm
-                </Link>
-              </li>
-              <li>
-                <Link to="/sustainability" className="hover:text-white transition-colors">
-                  Sustainability
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="hover:text-white transition-colors">
-                  Farm Updates
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-white">
-              Shop
-            </h4>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>
-                <Link to="/shop" className="hover:text-white transition-colors">
-                  Farm Shop
-                </Link>
-              </li>
-              <li>
-                <Link to="/products" className="hover:text-white transition-colors">
-                  Our Products
-                </Link>
-              </li>
-              <li>
-                <Link to="/cart" className="hover:text-white transition-colors">
-                  Cart
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-white">
-              Contact
-            </h4>
-            <ul className="mt-4 space-y-2 text-sm text-forest-200">
-              <li>{SITE.location}</li>
-              <li>
-                <a href={telUrl()} className="hover:text-white transition-colors">
+      <div className="container-page">
+        <div className="border-b border-white/10 py-14 md:py-16">
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-5">
+              <Link to="/" className="inline-flex items-center gap-3">
+                <img
+                  src={SITE.logoLight}
+                  alt={SITE.name}
+                  className="h-11 w-auto brightness-0 invert"
+                  width={140}
+                  height={52}
+                />
+                <span className="font-display text-xl font-semibold tracking-tight text-white">
+                  Agritech Farmstead
+                </span>
+              </Link>
+              <p className="mt-5 max-w-sm text-[15px] leading-relaxed text-forest-200">
+                Quality dairy and farm products from our Kenyan farm — raised
+                with care, handled with hygiene, and delivered with trust.
+              </p>
+              <p className="mt-6 text-sm text-forest-300">
+                <a href={telUrl()} className="font-medium text-white hover:underline">
                   {SITE.phoneDisplay}
                 </a>
-              </li>
-              <li>
+                <span className="mx-2 text-forest-500">·</span>
                 <a
                   href={whatsappUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="font-medium text-white hover:underline"
                 >
-                  WhatsApp: {SITE.phoneDisplay}
+                  WhatsApp
                 </a>
-              </li>
-              <li className="pt-2">
-                <Link
-                  to="/contact"
-                  className="text-forest-100 hover:text-white transition-colors"
-                >
-                  Contact form →
-                </Link>
-              </li>
-            </ul>
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7 lg:gap-10">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-forest-400">
+                  The farm
+                </p>
+                <ul className="mt-4 space-y-2.5">
+                  {farmLinks.map((l) => (
+                    <li key={l.to}>
+                      <Link
+                        to={l.to}
+                        className="text-sm text-forest-100 transition-colors hover:text-white"
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-forest-400">
+                  Shop
+                </p>
+                <ul className="mt-4 space-y-2.5">
+                  {shopLinks.map((l) => (
+                    <li key={l.to}>
+                      <Link
+                        to={l.to}
+                        className="text-sm text-forest-100 transition-colors hover:text-white"
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-forest-400">
+                  Legal
+                </p>
+                <ul className="mt-4 space-y-2.5">
+                  {legalLinks.map((l) => (
+                    <li key={l.to}>
+                      <Link
+                        to={l.to}
+                        className="text-sm text-forest-100 transition-colors hover:text-white"
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-forest-800 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-forest-300">
-            © {new Date().getFullYear()} {SITE.name}. All rights reserved.
-          </p>
-          <div className="flex flex-wrap gap-4 text-sm text-forest-300">
-            <Link to="/privacy-policy" className="hover:text-white">
-              Privacy Policy
-            </Link>
-            <Link to="/terms" className="hover:text-white">
-              Terms
-            </Link>
-            <Link to="/shipping-delivery" className="hover:text-white">
-              Shipping & Delivery
-            </Link>
-            <Link to="/returns-refunds" className="hover:text-white">
-              Returns
-            </Link>
-          </div>
+        <div className="flex flex-col items-start justify-between gap-3 py-6 text-xs text-forest-400 sm:flex-row sm:items-center">
+          <p>© {new Date().getFullYear()} Agritech Farmstead. All rights reserved.</p>
+          <p className="text-forest-500">{SITE.location !== '[Farm Location]' ? SITE.location : 'Kenya'}</p>
         </div>
       </div>
     </footer>
