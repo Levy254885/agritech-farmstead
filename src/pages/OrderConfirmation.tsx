@@ -14,6 +14,11 @@ export function OrderConfirmation() {
       <div className="container-page py-24 text-center">
         <h1 className="text-2xl font-semibold">Order confirmation</h1>
         <p className="mt-3 text-charcoal-600">
+          {orderId ? (
+            <>
+              Reference: <strong>{orderId}</strong>.{' '}
+            </>
+          ) : null}
           For fastest service, send your order on WhatsApp to {SITE.phoneDisplay}.
         </p>
         <a
@@ -25,9 +30,11 @@ export function OrderConfirmation() {
           <MessageCircle className="h-4 w-4" />
           WhatsApp {SITE.phoneDisplay}
         </a>
-        <Link to="/shop" className="btn-secondary mt-4 inline-flex ml-2">
-          Continue shopping
-        </Link>
+        <div className="mt-4">
+          <Link to="/shop" className="btn-secondary inline-flex">
+            Continue shopping
+          </Link>
+        </div>
       </div>
     );
   }
