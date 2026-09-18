@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import type { Product } from '@/types';
 import { formatCurrency } from '@/lib/utils';
 import { useCartStore } from '@/store/cartStore';
-import { MessageCircle } from 'lucide-react';
 import { whatsappUrl } from '@/lib/site';
 
 interface ProductCardProps {
@@ -17,73 +16,57 @@ export function ProductCard({ product }: ProductCardProps) {
   const isAvailable = product.available !== false && product.stockQuantity > 0;
 
   return (
-    <article className="group flex flex-col">
-      <Link
-        to={`/shop/${product.slug}`}
-        className="block overflow-hidden rounded-sm bg-forest-50"
-      >
-        <div className="aspect-square overflow-hidden">
+    <article className="flex flex-col border border-charcoal-200 bg-white">
+      <Link to={`/shop/${product.slug}`} className="block">
+        <div className="aspect-square overflow-hidden bg-charcoal-50">
           {product.images?.[0] ? (
             <img
               src={product.images[0]}
               alt={product.name}
-              className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+              className="h-full w-full object-cover"
               loading="lazy"
             />
           ) : (
-            <div className="flex h-full items-center justify-center text-sm text-forest-300">
+            <div className="flex h-full items-center justify-center text-sm text-charcoal-400">
               No image
             </div>
           )}
         </div>
       </Link>
 
-      <div className="flex flex-1 flex-col pt-3.5">
-        {product.category && (
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-forest-600">
-            {product.category}
-          </p>
-        )}
+      <div className="flex flex-1 flex-col border-t border-charcoal-200 p-4">
         <Link to={`/shop/${product.slug}`}>
-          <h3 className="mt-1 font-display text-base font-medium tracking-tight text-charcoal-950 transition-colors group-hover:text-forest-800">
+          <h3 className="text-sm font-semibold text-charcoal-900 hover:underline">
             {product.name}
           </h3>
         </Link>
         {product.unit && (
-          <p className="mt-0.5 text-xs text-charcoal-500">{product.unit}</p>
+          <p className="mt-1 text-xs text-charcoal-500">{product.unit}</p>
         )}
 
-        <div className="mt-auto flex flex-col gap-3 pt-3">
+        <div className="mt-auto flex flex-col gap-3 pt-4">
           <div className="flex items-baseline justify-between gap-2">
-            <p className="text-sm font-semibold text-charcoal-950">
+            <p className="text-sm font-semibold text-charcoal-900">
               {formatCurrency(product.price)}
             </p>
-            <span
-              className={
-                isAvailable
-                  ? 'text-[11px] font-medium text-forest-600'
-                  : 'text-[11px] font-medium text-charcoal-400'
-              }
-            >
-              {isAvailable ? 'In Stock' : 'Out of stock'}
+            <span className="text-xs text-charcoal-500">
+              {isAvailable ? 'In stock' : 'Out of stock'}
             </span>
           </div>
 
           <div className="flex gap-2">
             <Link
               to={`/shop/${product.slug}`}
-              className="flex-1 rounded-full border border-forest-200 bg-white py-2 text-center text-xs font-semibold text-forest-900 transition-colors hover:border-forest-400 hover:bg-forest-50"
+              className="flex-1 border border-charcoal-300 py-2 text-center text-xs font-semibold text-charcoal-800 hover:border-charcoal-500 hover:bg-charcoal-50"
             >
-              View details
+              Details
             </Link>
             <a
               href={whatsappUrl(waMessage)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-forest-800 py-2 text-xs font-semibold text-white transition-colors hover:bg-forest-900"
-              onClick={(e) => e.stopPropagation()}
+              className="flex-1 border border-forest-900 bg-forest-900 py-2 text-center text-xs font-semibold text-white hover:bg-forest-800"
             >
-              <MessageCircle className="h-3.5 w-3.5" />
               Order
             </a>
           </div>
@@ -92,7 +75,7 @@ export function ProductCard({ product }: ProductCardProps) {
             <button
               type="button"
               onClick={() => addItem(product)}
-              className="w-full text-center text-xs font-medium text-charcoal-500 transition-colors hover:text-forest-800"
+              className="w-full text-center text-xs font-medium text-charcoal-600 hover:text-charcoal-900"
             >
               Add to cart
             </button>
