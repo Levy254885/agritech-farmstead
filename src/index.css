@@ -21,48 +21,41 @@
   }
 
   body {
-    @apply bg-white text-charcoal-950 font-sans antialiased;
+    @apply bg-white text-charcoal-900 font-sans antialiased;
   }
 
-  h1,
-  h2,
-  h3,
-  h4 {
-    @apply font-display tracking-tight text-charcoal-950;
+  h1, h2, h3, h4 {
+    @apply font-display font-medium tracking-tight text-charcoal-900;
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-forest-600;
-  }
-
-  ::selection {
-    @apply bg-forest-200 text-forest-950;
+    @apply outline-2 outline-offset-2 outline-forest-700;
   }
 }
 
 @layer components {
   .container-page {
-    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest-800 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-forest-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 border border-forest-900 bg-forest-900 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-forest-800 hover:border-forest-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-700 disabled:cursor-not-allowed disabled:opacity-60;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-forest-300 bg-white px-5 py-2.5 text-sm font-semibold text-forest-900 transition-colors hover:border-forest-700 hover:bg-forest-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600;
+    @apply inline-flex items-center justify-center gap-2 border border-charcoal-300 bg-white px-5 py-2.5 text-sm font-semibold text-charcoal-900 transition-colors hover:border-charcoal-500 hover:bg-charcoal-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-700;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-charcoal-800 transition-colors hover:bg-forest-50 hover:text-forest-900;
+    @apply inline-flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-charcoal-700 transition-colors hover:text-charcoal-900;
   }
 
   .btn-white {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-forest-900 shadow-soft transition-colors hover:bg-cream-100;
+    @apply inline-flex items-center justify-center gap-2 border border-white bg-white px-5 py-2.5 text-sm font-semibold text-charcoal-900 transition-colors hover:bg-charcoal-50;
   }
 
   .section-padding {
-    @apply py-16 md:py-24 lg:py-28;
+    @apply py-20 md:py-28;
   }
 
   .prose-farm {
@@ -70,10 +63,10 @@
   }
 
   .eyebrow {
-    @apply text-[11px] font-semibold uppercase tracking-[0.2em] text-forest-600;
+    @apply text-xs font-semibold uppercase tracking-widest text-charcoal-500;
   }
 
   .link-arrow {
-    @apply inline-flex items-center gap-1.5 text-sm font-semibold text-forest-800 transition-colors hover:text-forest-950;
+    @apply inline-flex items-center gap-1.5 text-sm font-semibold text-forest-800 underline-offset-4 hover:underline;
   }
 }
