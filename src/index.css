@@ -21,40 +21,73 @@
   }
 
   body {
-    @apply bg-cream-50 text-charcoal-950 font-sans antialiased;
+    @apply bg-milk-soft text-charcoal-950 font-sans antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply font-display tracking-tight text-charcoal-950;
   }
 
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-forest-600;
   }
+
+  ::selection {
+    @apply bg-forest-200 text-forest-950;
+  }
 }
 
 @layer components {
   .container-page {
-    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-md bg-forest-700 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-forest-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest-800 px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-forest-900 hover:shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600 disabled:cursor-not-allowed disabled:opacity-60;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-md border border-forest-700 bg-transparent px-5 py-2.5 text-sm font-medium text-forest-800 transition-colors hover:bg-forest-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-forest-700/30 bg-white/90 px-6 py-3 text-sm font-semibold text-forest-900 backdrop-blur-sm transition-all duration-200 hover:border-forest-700 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-600;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-charcoal-800 transition-colors hover:bg-forest-50 hover:text-forest-800;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-charcoal-800 transition-colors hover:bg-forest-50 hover:text-forest-900;
+  }
+
+  .btn-white {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-forest-900 shadow-soft transition-all duration-200 hover:bg-cream-100;
   }
 
   .section-padding {
-    @apply py-16 md:py-24 lg:py-28;
+    @apply py-20 md:py-28 lg:py-32;
   }
 
   .prose-farm {
-    @apply max-w-prose text-charcoal-700 leading-relaxed;
+    @apply max-w-prose text-charcoal-600 leading-relaxed;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-forest-600;
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-1.5 text-sm font-semibold text-forest-800 transition-colors hover:text-forest-950;
+  }
+
+  .milk-wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+  }
+
+  .milk-wave svg {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 }
