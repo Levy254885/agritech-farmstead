@@ -9,7 +9,7 @@ export const SITE = {
   email: '[Business Email]',
   location: '[Farm Location]',
   businessHours: 'Monday – Saturday: 7:00 AM – 6:00 PM',
-  logo: '/logo.png',
+  logo: '/logo-light.svg',
   logoLight: '/logo-light.svg',
 } as const;
 
