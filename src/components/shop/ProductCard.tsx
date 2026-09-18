@@ -14,6 +14,8 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const waMessage = `Hello Agritech Farmstead, I would like to order:\n• ${product.name} (${product.unit || 'unit'})\nPrice: ${formatCurrency(product.price)}\n\nPlease confirm availability.`;
 
+  const isAvailable = product.available !== false && product.stockQuantity > 0;
+
   return (
     <article className="group flex flex-col">
       <Link to={`/shop/${product.slug}`} className="block overflow-hidden rounded-xl bg-forest-50">
@@ -60,10 +62,10 @@ export function ProductCard({ product }: ProductCardProps) {
                 </span>
               )}
             </p>
-            {product.inStock === false ? (
-              <span className="text-xs font-medium text-charcoal-400">Out of stock</span>
-            ) : (
+            {isAvailable ? (
               <span className="text-xs font-medium text-forest-600">Available</span>
+            ) : (
+              <span className="text-xs font-medium text-charcoal-400">Out of stock</span>
             )}
           </div>
 
@@ -86,7 +88,7 @@ export function ProductCard({ product }: ProductCardProps) {
             </a>
           </div>
 
-          {product.inStock !== false && (
+          {isAvailable && (
             <button
               type="button"
               onClick={() => addItem(product)}
