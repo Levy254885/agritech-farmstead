@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 280" fill="none" role="img" aria-label="Agritech Farmstead">
+  <path d="M60 130 L160 50 L260 130" stroke="#2f4f38" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M70 130 L70 175" stroke="#2f4f38" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M250 130 L250 175" stroke="#2f4f38" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M160 115 L160 75" stroke="#2f4f38" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M160 85 Q145 75 140 90" stroke="#2f4f38" stroke-width="2" fill="none"/>
+  <path d="M160 85 Q175 75 180 90" stroke="#2f4f38" stroke-width="2" fill="none"/>
+  <ellipse cx="160" cy="68" rx="8" ry="12" stroke="#2f4f38" stroke-width="2" fill="none"/>
+  <ellipse cx="100" cy="155" rx="28" ry="18" stroke="#2f4f38" stroke-width="2.5" fill="none"/>
+  <circle cx="78" cy="152" r="8" stroke="#2f4f38" stroke-width="2" fill="none"/>
+  <path d="M85 165 L88 175 M112 165 L115 175" stroke="#2f4f38" stroke-width="2" stroke-linecap="round"/>
+  <ellipse cx="175" cy="145" rx="35" ry="22" stroke="#2f4f38" stroke-width="2.5" fill="none"/>
+  <path d="M205 140 L225 125 Q235 120 238 130 L235 150" stroke="#2f4f38" stroke-width="2.5" fill="none"/>
+  <path d="M155 160 L152 175 M175 162 L175 175 M195 160 L198 175" stroke="#2f4f38" stroke-width="2" stroke-linecap="round"/>
+  <ellipse cx="245" cy="160" rx="14" ry="10" stroke="#2f4f38" stroke-width="2" fill="none"/>
+  <path d="M255 155 Q265 148 262 158" stroke="#2f4f38" stroke-width="2" fill="none"/>
+  <path d="M50 180 Q120 195 160 185 Q200 175 270 190" stroke="#2f4f38" stroke-width="2" fill="none"/>
+  <text x="160" y="230" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#2f4f38">Agritech</text>
+  <text x="160" y="258" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#3a6345" letter-spacing="4">— Farmstead —</text>
+</svg>
