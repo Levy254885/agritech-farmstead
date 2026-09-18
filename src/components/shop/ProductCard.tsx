@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import type { Product } from '@/types';
 import { formatCurrency } from '@/lib/utils';
 import { useCartStore } from '@/store/cartStore';
+import { MessageCircle } from 'lucide-react';
+import { whatsappUrl } from '@/lib/site';
 
 interface ProductCardProps {
   product: Product;
@@ -10,64 +12,89 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const addItem = useCartStore((s) => s.addItem);
 
+  const waMessage = `Hello Agritech Farmstead, I would like to order:\n• ${product.name} (${product.unit || 'unit'})\nPrice: ${formatCurrency(product.price)}\n\nPlease confirm availability.`;
+
   return (
-    <article className="group flex flex-col overflow-hidden rounded-lg border border-forest-100 bg-white transition-shadow hover:shadow-md">
-      <Link to={`/shop/${product.slug}`} className="block overflow-hidden">
-        <div className="aspect-[4/3] overflow-hidden bg-forest-50">
-          {product.images[0] ? (
+    <article className="group flex flex-col">
+      <Link to={`/shop/${product.slug}`} className="block overflow-hidden rounded-xl bg-forest-50">
+        <div className="aspect-[4/5] overflow-hidden sm:aspect-[4/3]">
+          {product.images?.[0] ? (
             <img
               src={product.images[0]}
               alt={product.name}
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
               loading="lazy"
             />
           ) : (
-            <div className="flex h-full items-center justify-center text-forest-300">
+            <div className="flex h-full items-center justify-center text-sm text-forest-300">
               No image
             </div>
           )}
         </div>
       </Link>
 
-      <div className="flex flex-1 flex-col p-4">
+      <div className="flex flex-1 flex-col pt-4">
+        {product.category && (
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-forest-600">
+            {product.category}
+          </p>
+        )}
         <Link to={`/shop/${product.slug}`}>
-          <h3 className="font-medium text-charcoal-950 group-hover:text-forest-800">
+          <h3 className="mt-1 font-display text-lg font-semibold tracking-tight text-charcoal-950 transition-colors group-hover:text-forest-800">
             {product.name}
           </h3>
         </Link>
         {product.shortDescription && (
-          <p className="mt-1 line-clamp-2 text-sm text-charcoal-600">
+          <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-charcoal-500">
             {product.shortDescription}
           </p>
         )}
-        <div className="mt-auto flex items-end justify-between gap-2 pt-4">
-          <div>
-            <p className="font-semibold text-forest-800">
+
+        <div className="mt-auto flex flex-col gap-3 pt-4">
+          <div className="flex items-baseline justify-between gap-2">
+            <p className="text-base font-semibold text-charcoal-950">
               {formatCurrency(product.price)}
+              {product.unit && (
+                <span className="ml-1 text-sm font-normal text-charcoal-500">
+                  / {product.unit}
+                </span>
+              )}
             </p>
-            <p className="text-xs text-charcoal-500">{product.unit}</p>
+            {product.inStock === false ? (
+              <span className="text-xs font-medium text-charcoal-400">Out of stock</span>
+            ) : (
+              <span className="text-xs font-medium text-forest-600">Available</span>
+            )}
           </div>
-          <div className="flex flex-col gap-1.5 items-end">
+
+          <div className="flex gap-2">
             <Link
               to={`/shop/${product.slug}`}
-              className="text-xs font-medium text-forest-700 hover:text-forest-900"
+              className="flex-1 rounded-full border border-forest-200 bg-white py-2.5 text-center text-xs font-semibold text-forest-900 transition-colors hover:border-forest-400 hover:bg-forest-50"
             >
               View details
             </Link>
-            {product.available && product.stockQuantity > 0 ? (
-              <button
-                type="button"
-                onClick={() => addItem(product, 1)}
-                className="btn-primary text-xs px-3 py-2"
-              >
-                Add to Cart
-              </button>
-            ) : (
-              <span className="text-xs font-medium text-charcoal-500">
-                Out of stock
-              </span>
-            )}
+            <a
+              href={whatsappUrl(waMessage)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-forest-800 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-forest-900"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <MessageCircle className="h-3.5 w-3.5" />
+              Order
+            </a>
           </div>
+
+          {product.inStock !== false && (
+            <button
+              type="button"
+              onClick={() => addItem(product)}
+              className="w-full text-center text-xs font-medium text-charcoal-500 transition-colors hover:text-forest-800"
+            >
+              Add to cart
+            </button>
+          )}
         </div>
       </div>
     </article>
