@@ -1,48 +1,42 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function isAuthenticated() {
+    function isAdmin() {
       return request.auth != null;
     }
-    function isAdmin() {
-      return isAuthenticated() &&
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+
+    match /products/{id} {
+      allow read: if resource.data.available == true || isAdmin();
+      allow write: if isAdmin();
     }
-    match /products/{productId} {
+
+    match /categories/{id} {
       allow read: if true;
       allow write: if isAdmin();
     }
-    match /categories/{categoryId} {
+
+    match /orders/{id} {
+      allow create: if true;
+      allow read, update: if isAdmin();
+    }
+
+    match /siteContent/{id} {
       allow read: if true;
       allow write: if isAdmin();
     }
-    match /orders/{orderId} {
-      allow create: if request.resource.data.keys().hasAll([
-        'orderNumber', 'customer', 'items', 'subtotal', 'total', 'orderStatus'
-      ]);
-      allow read, update, delete: if isAdmin();
+
+    match /settings/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
     }
-    match /customers/{customerId} {
+
+    match /media/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /admins/{id} {
       allow read, write: if isAdmin();
-    }
-    match /admins/{adminId} {
-      allow read, write: if isAdmin();
-    }
-    match /blogPosts/{postId} {
-      allow read: if resource.data.published == true || isAdmin();
-      allow write: if isAdmin();
-    }
-    match /farmUpdates/{updateId} {
-      allow read: if resource.data.published == true || isAdmin();
-      allow write: if isAdmin();
-    }
-    match /siteSettings/{docId} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
-    match /deliveryZones/{zoneId} {
-      allow read: if true;
-      allow write: if isAdmin();
     }
   }
 }

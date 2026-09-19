@@ -1,7 +1,7 @@
 /** Central business contact & branding — update here for the whole site */
 export const SITE = {
   name: 'Agritech Farmstead',
-  tagline: 'Quality from the farm. Care in every product.',
+  tagline: 'Livestock and farm products you can trust.',
   phone: '0758342670',
   phoneDisplay: '0758 342 670',
   /** Kenya format for WhatsApp (no leading 0) */
