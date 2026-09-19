@@ -1,37 +1,55 @@
-export function Sustainability() {
-  const topics = [
-    { title: 'Responsible farming', text: 'We aim to run the dairy operation in a way that respects animals, land, and the resources we depend on.' },
-    { title: 'Animal welfare', text: 'Healthy animals are central to our approach. Care routines and living conditions are managed with welfare in mind.' },
-    { title: 'Resource use', text: 'We work to use water, feed, and energy thoughtfully as part of everyday farm management.' },
-    { title: 'Land & soil', text: 'Looking after the land that supports the farm is part of long-term, practical agriculture.' },
-    { title: 'Waste & by-products', text: 'Where practical, we seek sensible ways to manage waste and make use of farm by-products.' },
-  ];
+import { Link } from 'react-router-dom';
 
+export function Sustainability() {
   return (
-    <div className="bg-cream-50">
-      <section className="border-b border-forest-100 bg-white">
+    <div className="bg-white">
+      <div className="border-b border-charcoal-200">
         <div className="container-page py-14 md:py-20">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Sustainability</h1>
-          <p className="prose-farm mt-4 max-w-2xl text-lg">
-            Practical responsibility in how we farm — without overstated claims.
+          <p className="text-xs font-semibold uppercase tracking-widest text-charcoal-500">
+            Sustainability
+          </p>
+          <h1 className="mt-3 font-display text-4xl text-charcoal-900 sm:text-5xl">
+            Responsible farming
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-charcoal-600">
+            We aim to raise animals humanely, use resources carefully and supply
+            honest products to the farmers and families who depend on us.
           </p>
         </div>
-      </section>
-      <section className="section-padding">
-        <div className="container-page max-w-3xl">
-          <p className="text-charcoal-700 leading-relaxed">
-            Sustainability at Agritech Farmstead means everyday choices: animal care, careful use of resources, and attention to the land. We do not claim certifications or statistics that have not been verified.
-          </p>
-          <div className="mt-12 space-y-10">
-            {topics.map((t) => (
-              <div key={t.title}>
-                <h2 className="text-xl font-semibold text-forest-800">{t.title}</h2>
-                <p className="mt-2 text-charcoal-700 leading-relaxed">{t.text}</p>
-              </div>
-            ))}
-          </div>
+      </div>
+      <div className="container-page py-16 md:py-24">
+        <div className="grid gap-10 md:grid-cols-2">
+          {[
+            {
+              title: 'Animal care',
+              text: 'Clean housing, adequate feed and daily observation are central to how we run the pig unit.',
+            },
+            {
+              title: 'Resource use',
+              text: 'We work to reduce waste in feed handling and butchery operations where practical.',
+            },
+            {
+              title: 'Community supply',
+              text: 'Local collection and transparent ordering help keep supply reliable for nearby customers.',
+            },
+            {
+              title: 'Long-term view',
+              text: 'Breeding decisions and farm practices are guided by the goal of a lasting, healthy herd.',
+            },
+          ].map((item) => (
+            <div key={item.title}>
+              <h2 className="text-base font-semibold text-charcoal-900">{item.title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-charcoal-600">{item.text}</p>
+            </div>
+          ))}
         </div>
-      </section>
+        <Link
+          to="/contact"
+          className="mt-12 inline-block text-sm font-semibold text-[#1565c0] underline-offset-4 hover:underline"
+        >
+          Contact the farm
+        </Link>
+      </div>
     </div>
   );
 }

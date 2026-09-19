@@ -1,38 +1,76 @@
-export function DairyFarming() {
-  const sections = [
-    { title: 'Our herd', text: 'We maintain a dairy herd managed for health, productivity, and welfare. Daily observation and routine care are part of how we protect milk quality at the source.' },
-    { title: 'Feeding', text: 'Nutrition is planned to support healthy animals. We focus on consistent, appropriate feed as a foundation for reliable production.' },
-    { title: 'Animal care', text: 'Veterinary attention, clean housing where applicable, and attentive stockmanship are priorities on the farm.' },
-    { title: 'Milking & hygiene', text: 'Milking routines emphasise cleanliness and careful handling so that milk leaves the parlour in good condition.' },
-    { title: 'Quality control', text: 'From cooling to packaging, we follow steps intended to preserve freshness and meet the expectations of our customers.' },
-    { title: 'Responsible farming', text: 'We aim to use resources thoughtfully and care for the land that supports the dairy operation.' },
-  ];
+import { Link } from 'react-router-dom';
 
+const practices = [
+  {
+    title: 'Animal welfare',
+    text: 'Clean housing, adequate space and daily observation help keep our pigs healthy and productive.',
+  },
+  {
+    title: 'Feeding',
+    text: 'Balanced rations support growth for piglets and condition for breeding stock.',
+  },
+  {
+    title: 'Breeding stock',
+    text: 'We select and manage gilts, boars and sows carefully so buyers receive animals fit for their programmes.',
+  },
+  {
+    title: 'Butchery hygiene',
+    text: 'Meat and poultry products are handled with attention to cleanliness and cold storage where required.',
+  },
+  {
+    title: 'Transparency',
+    text: 'We confirm availability, expected weights and collection details before you commit to an order.',
+  },
+];
+
+export function DairyFarming() {
   return (
-    <div className="bg-cream-50">
-      <section className="border-b border-forest-100 bg-white">
+    <div className="bg-white">
+      <div className="border-b border-charcoal-200">
         <div className="container-page py-14 md:py-20">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Dairy farming</h1>
-          <p className="prose-farm mt-4 max-w-2xl text-lg">
-            How we manage the dairy operation — from the herd to the milk that reaches your table.
+          <p className="text-xs font-semibold uppercase tracking-widest text-charcoal-500">
+            Our practices
+          </p>
+          <h1 className="mt-3 font-display text-4xl text-charcoal-900 sm:text-5xl">
+            Livestock farming
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-charcoal-600">
+            How we manage the pig unit and butchery — from animal care to the
+            products that leave the farm.
           </p>
         </div>
-      </section>
-      <section className="section-padding">
-        <div className="container-page">
-          <div className="mb-12 aspect-[21/9] overflow-hidden rounded-lg bg-forest-100">
-            <img src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=1400&q=80" alt="Dairy cows on pasture" className="h-full w-full object-cover" />
+      </div>
+
+      <div className="container-page py-16 md:py-24">
+        <div className="grid gap-12 md:grid-cols-2 md:gap-16">
+          <div className="aspect-[4/3] overflow-hidden bg-charcoal-100">
+            <img
+              src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?w=1000&q=80"
+              alt="Pigs on the farm"
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
           </div>
-          <div className="grid gap-10 md:grid-cols-2">
-            {sections.map((s) => (
-              <div key={s.title}>
-                <h2 className="text-xl font-semibold text-forest-800">{s.title}</h2>
-                <p className="mt-3 text-charcoal-700 leading-relaxed">{s.text}</p>
+          <div className="space-y-8">
+            {practices.map((p) => (
+              <div key={p.title}>
+                <h2 className="text-base font-semibold text-charcoal-900">
+                  {p.title}
+                </h2>
+                <p className="mt-1 text-sm leading-relaxed text-charcoal-600">
+                  {p.text}
+                </p>
               </div>
             ))}
+            <Link
+              to="/shop"
+              className="inline-block text-sm font-semibold text-[#1565c0] underline-offset-4 hover:underline"
+            >
+              Browse livestock and butchery products
+            </Link>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

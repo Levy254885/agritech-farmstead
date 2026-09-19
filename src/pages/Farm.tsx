@@ -1,45 +1,72 @@
-export function Farm() {
-  const areas = [
-    {
-      title: 'Farm overview',
-      text: 'Agritech Farmstead is organised around dairy production, with supporting areas for animals, feed, and handling of milk and farm products.',
-      image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=900&q=80',
-    },
-    {
-      title: 'Pastures & environment',
-      text: 'Green space and outdoor areas support animal comfort and the broader farm environment. [Details to be confirmed with client.]',
-      image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=900&q=80',
-    },
-    {
-      title: 'Dairy facilities',
-      text: 'Milking and milk handling areas are managed with attention to hygiene and efficient daily routines.',
-      image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=900&q=80',
-    },
-  ];
+import { Link } from 'react-router-dom';
 
+const sections = [
+  {
+    title: 'Livestock unit',
+    text: 'Our pig unit is organised around clean housing, balanced feed and daily observation so animals remain healthy and productive.',
+  },
+  {
+    title: 'Breeding stock',
+    text: 'We offer piglets, gilts, boars and pregnant sows for farmers building or expanding their herds. Availability follows the breeding calendar.',
+  },
+  {
+    title: 'Butchery',
+    text: 'On the farm we prepare fresh pork, chicken and eggs for customers who prefer farm-sourced meat and poultry products.',
+  },
+  {
+    title: 'Visits & collection',
+    text: 'Farm collection is preferred for livestock. Contact us ahead of time so we can confirm stock and guide you on the best time to collect.',
+  },
+];
+
+export function Farm() {
   return (
-    <div className="bg-cream-50">
-      <section className="border-b border-forest-100 bg-white">
+    <div className="bg-white">
+      <div className="border-b border-charcoal-200">
         <div className="container-page py-14 md:py-20">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Our farm</h1>
-          <p className="prose-farm mt-4 max-w-2xl text-lg">
-            A look at the place where our milk and farm products begin.
+          <p className="text-xs font-semibold uppercase tracking-widest text-charcoal-500">
+            The farm
+          </p>
+          <h1 className="mt-3 font-display text-4xl text-charcoal-900 sm:text-5xl">
+            Where our livestock and products begin
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-charcoal-600">
+            Agritech Farmstead is a working farm focused on pig production and
+            a practical butchery for fresh pork, chicken and eggs.
           </p>
         </div>
-      </section>
-      {areas.map((area, i) => (
-        <section key={area.title} className={`section-padding ${i % 2 === 1 ? 'bg-white' : ''}`}>
-          <div className={`container-page grid gap-10 lg:grid-cols-2 lg:items-center ${i % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
-            <div className="aspect-[4/3] overflow-hidden rounded-lg bg-forest-100">
-              <img src={area.image} alt={area.title} className="h-full w-full object-cover" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight">{area.title}</h2>
-              <p className="prose-farm mt-4">{area.text}</p>
-            </div>
+      </div>
+
+      <div className="container-page py-16 md:py-24">
+        <div className="grid gap-12 md:grid-cols-2">
+          <div className="aspect-[4/3] overflow-hidden bg-charcoal-100 md:sticky md:top-24 md:self-start">
+            <img
+              src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=1000&q=80"
+              alt="Farm livestock housing"
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
           </div>
-        </section>
-      ))}
+          <div className="space-y-10">
+            {sections.map((s) => (
+              <div key={s.title}>
+                <h2 className="font-display text-xl text-charcoal-900">
+                  {s.title}
+                </h2>
+                <p className="mt-2 text-base leading-relaxed text-charcoal-600">
+                  {s.text}
+                </p>
+              </div>
+            ))}
+            <Link
+              to="/contact"
+              className="inline-block text-sm font-semibold text-[#1565c0] underline-offset-4 hover:underline"
+            >
+              Plan a farm visit or order
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
