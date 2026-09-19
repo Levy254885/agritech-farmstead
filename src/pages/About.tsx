@@ -1,81 +1,79 @@
+import { Link } from 'react-router-dom';
+
 export function About() {
   return (
-    <div className="bg-cream-50">
-      <section className="border-b border-forest-100 bg-white">
+    <div className="bg-white">
+      <div className="border-b border-charcoal-200">
         <div className="container-page py-14 md:py-20">
-          <p className="text-sm font-medium uppercase tracking-wider text-forest-600">
+          <p className="text-xs font-semibold uppercase tracking-widest text-charcoal-500">
             About us
           </p>
-          <h1 className="mt-2 max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h1 className="mt-3 font-display text-4xl text-charcoal-900 sm:text-5xl">
             Agritech Farmstead
           </h1>
-          <p className="prose-farm mt-6 text-lg">
-            We are a Kenyan dairy farming business focused on producing quality
-            milk and farm products with care for our animals, our land, and the
-            households that trust us.
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-charcoal-600">
+            We are a Kenyan livestock and farm-products business focused on
+            quality breeding stock, fresh meat and everyday farm foods —
+            supplied with care for our animals, our customers and the land we
+            work on.
           </p>
         </div>
-      </section>
+      </div>
 
-      <section className="section-padding">
-        <div className="container-page grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div className="aspect-[4/3] overflow-hidden rounded-lg bg-forest-100">
+      <div className="container-page py-16 md:py-24">
+        <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
+          <div className="aspect-[4/3] overflow-hidden bg-charcoal-100">
             <img
-              src="https://images.unsplash.com/photo-1516467501853-1efe0f6f07a9?w=1000&q=80"
-              alt="Dairy farm landscape"
+              src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=1000&q=80"
+              alt="Livestock on the farm"
               className="h-full w-full object-cover"
+              loading="lazy"
             />
           </div>
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              Who we are
+            <h2 className="font-display text-2xl text-charcoal-900 sm:text-3xl">
+              What we do
             </h2>
-            <p className="prose-farm mt-4">
-              Agritech Farmstead operates a dairy farming enterprise where daily
-              routines — feeding, animal health, milking, and hygiene — are
-              managed with consistency. Our goal is straightforward: reliable,
-              quality products that reflect the care taken on the farm.
+            <p className="mt-4 text-base leading-relaxed text-charcoal-600">
+              Agritech Farmstead raises pigs for sale as piglets, gilts, boars
+              and pregnant sows. We also run a butchery offering fresh pork,
+              kienyeji and broiler chicken, and farm eggs. Orders are confirmed
+              by phone or WhatsApp before fulfilment.
             </p>
-            <p className="prose-farm mt-4">
-              [Farm Description — replace with client-provided detail about
-              history, location, and scale.]
-            </p>
+            <div className="mt-8 space-y-6">
+              {[
+                {
+                  title: 'Livestock',
+                  text: 'Healthy piglets and breeding stock managed with attention to housing, feeding and welfare.',
+                },
+                {
+                  title: 'Butchery',
+                  text: 'Fresh pork cuts, chicken and eggs prepared for households and regular customers.',
+                },
+                {
+                  title: 'Direct supply',
+                  text: 'Farm collection and arranged delivery options. We confirm stock before you travel.',
+                },
+              ].map((item) => (
+                <div key={item.title}>
+                  <h3 className="text-sm font-semibold text-charcoal-900">
+                    {item.title}
+                  </h3>
+                  <p className="mt-1 text-sm leading-relaxed text-charcoal-600">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <Link
+              to="/shop"
+              className="mt-10 inline-block text-sm font-semibold text-[#1565c0] underline-offset-4 hover:underline"
+            >
+              Visit the Farm Shop
+            </Link>
           </div>
         </div>
-      </section>
-
-      <section className="border-t border-forest-100 bg-white section-padding">
-        <div className="container-page">
-          <h2 className="text-center text-2xl font-semibold tracking-tight sm:text-3xl">
-            What guides us
-          </h2>
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {[
-              {
-                title: 'Quality',
-                text: 'From the parlour to packaging, we prioritise practices that protect the integrity of our milk and farm products.',
-              },
-              {
-                title: 'Responsibility',
-                text: 'Animal welfare and thoughtful use of resources are part of how we run the farm day to day.',
-              },
-              {
-                title: 'Trust',
-                text: 'We aim to be a dependable source for families and customers who value farm-fresh products.',
-              },
-            ].map((v) => (
-              <div key={v.title} className="text-center">
-                <h3 className="text-lg font-semibold text-forest-800">
-                  {v.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-charcoal-600">
-                  {v.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   );
 }
