@@ -50,22 +50,16 @@ export function Header() {
           <div className="flex h-[4.25rem] items-center justify-between gap-4">
             <Link
               to="/"
-              className="flex shrink-0 items-center gap-2"
+              className="flex shrink-0 items-center"
               onClick={() => setOpen(false)}
             >
               <img
                 src={SITE.logoLight}
                 alt={SITE.name}
-                className="h-9 w-auto"
-                width={120}
-                height={48}
+                className="h-11 w-auto object-contain sm:h-12"
+                width={180}
+                height={80}
               />
-              <span className="text-base font-bold tracking-tight text-[#1565c0]">
-                AGRITECH
-                <span className="block text-[10px] font-semibold uppercase tracking-wider text-[#42a5f5]">
-                  Farmstead
-                </span>
-              </span>
             </Link>
 
             <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">

@@ -9,11 +9,10 @@ export const SITE = {
   email: '[Business Email]',
   location: '[Farm Location]',
   businessHours: 'Monday – Saturday: 7:00 AM – 6:00 PM',
-  /** Official logo — transparent, for light backgrounds */
-  logo: '/logo.png',
-  logoLight: '/logo-light.png',
-  /** Original white-on-black artwork */
-  logoDark: '/logo-dark.png',
+  /** Official logo for light backgrounds */
+  logo: '/logo-light.svg',
+  logoLight: '/logo-light.svg',
+  logoDark: '/logo-dark.svg',
 } as const;
 
 export function whatsappUrl(message?: string): string {
