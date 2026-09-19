@@ -1,25 +1,40 @@
 /**
- * Cloudinary image delivery helpers.
- * Upload from the admin UI uses unsigned preset or server-side when configured.
- * Set VITE_CLOUDINARY_CLOUD_NAME and VITE_CLOUDINARY_UPLOAD_PRESET in .env
+ * Cloudinary — set on Vercel:
+ * VITE_CLOUDINARY_CLOUD_NAME
+ * VITE_CLOUDINARY_UPLOAD_PRESET  (must be UNSIGNED)
  */
 
-const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME as string | undefined;
-const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET as string | undefined;
+const cloudName = (import.meta.env.VITE_CLOUDINARY_CLOUD_NAME as string | undefined)?.trim();
+const uploadPreset = (import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET as string | undefined)?.trim();
 
 export function isCloudinaryConfigured(): boolean {
   return Boolean(cloudName && uploadPreset);
 }
 
-/** Build a delivery URL from a public ID or return external URLs as-is */
+export function getCloudinaryCloudName(): string | undefined {
+  return cloudName;
+}
+
+/** Normalize any stored image value to a browser-loadable HTTPS URL */
+export function resolveImageUrl(src: string | undefined | null): string {
+  if (!src) return '';
+  const s = src.trim();
+  if (!s) return '';
+  if (/^https?:\/\//i.test(s)) return s;
+  if (s.startsWith('//')) return `https:${s}`;
+  if (cloudName) {
+    return `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto/${s.replace(/^\//, '')}`;
+  }
+  if (s.startsWith('/')) return s;
+  return s;
+}
+
 export function cloudinaryUrl(
   publicIdOrUrl: string,
   options?: { width?: number; height?: number; crop?: string }
 ): string {
   if (!publicIdOrUrl) return '';
-  if (publicIdOrUrl.startsWith('http://') || publicIdOrUrl.startsWith('https://')) {
-    return publicIdOrUrl;
-  }
+  if (/^https?:\/\//i.test(publicIdOrUrl)) return publicIdOrUrl;
   if (!cloudName) return publicIdOrUrl;
   const w = options?.width ? `w_${options.width},` : '';
   const h = options?.height ? `h_${options.height},` : '';
@@ -34,28 +49,38 @@ export interface CloudinaryUploadResult {
   height?: number;
 }
 
-/** Client-side unsigned upload (requires upload preset on Cloudinary dashboard) */
 export async function uploadImage(file: File): Promise<CloudinaryUploadResult> {
   if (!cloudName || !uploadPreset) {
     throw new Error(
-      'Cloudinary is not configured. Add VITE_CLOUDINARY_CLOUD_NAME and VITE_CLOUDINARY_UPLOAD_PRESET, or paste an image URL instead.'
+      'Cloudinary is not configured. In Vercel set VITE_CLOUDINARY_CLOUD_NAME and VITE_CLOUDINARY_UPLOAD_PRESET (unsigned preset), then redeploy.'
     );
   }
+
   const form = new FormData();
   form.append('file', file);
   form.append('upload_preset', uploadPreset);
+
   const res = await fetch(
     `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
     { method: 'POST', body: form }
   );
+
+  const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const err = await res.text();
-    throw new Error(err || 'Upload failed');
+    const msg =
+      data?.error?.message ||
+      data?.message ||
+      `Upload failed (${res.status}). Check that the upload preset is UNSIGNED and the cloud name is correct.`;
+    throw new Error(msg);
   }
-  const data = await res.json();
+
+  if (!data.secure_url) {
+    throw new Error('Upload succeeded but no secure_url returned from Cloudinary.');
+  }
+
   return {
-    public_id: data.public_id,
-    secure_url: data.secure_url,
+    public_id: data.public_id as string,
+    secure_url: data.secure_url as string,
     width: data.width,
     height: data.height,
   };
