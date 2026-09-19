@@ -26,6 +26,7 @@ import { AdminLogin } from '@/pages/admin/AdminLogin';
 import { AdminProducts } from '@/pages/admin/AdminProducts';
 import { AdminOrders } from '@/pages/admin/AdminOrders';
 import { AdminContent } from '@/pages/admin/AdminContent';
+import { AdminBlogs } from '@/pages/admin/AdminBlogs';
 
 export default function App() {
   return (
@@ -57,6 +58,7 @@ export default function App() {
         <Route path="products" element={<AdminProducts />} />
         <Route path="orders" element={<AdminOrders />} />
         <Route path="content" element={<AdminContent />} />
+        <Route path="blogs" element={<AdminBlogs />} />
       </Route>
     </Routes>
   );
