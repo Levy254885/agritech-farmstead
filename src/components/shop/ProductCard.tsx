@@ -3,6 +3,7 @@ import type { Product } from '@/types';
 import { formatCurrency } from '@/lib/utils';
 import { useCartStore } from '@/store/cartStore';
 import { whatsappUrl } from '@/lib/site';
+import { resolveImageUrl } from '@/lib/cloudinary';
 
 interface ProductCardProps {
   product: Product;
@@ -21,7 +22,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="aspect-square overflow-hidden bg-charcoal-50">
           {product.images?.[0] ? (
             <img
-              src={product.images[0]}
+              src={resolveImageUrl(product.images[0])}
               alt={product.name}
               className="h-full w-full object-cover"
               loading="lazy"

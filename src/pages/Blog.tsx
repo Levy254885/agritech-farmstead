@@ -1,66 +1,72 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { demoBlogPosts } from '@/data/demo';
+import { getPublishedPosts } from '@/lib/blogs';
+import type { BlogPost } from '@/types';
 import { formatDate } from '@/lib/utils';
+import { resolveImageUrl } from '@/lib/cloudinary';
 
 export function Blog() {
-  const posts = demoBlogPosts.filter((p) => p.published);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getPublishedPosts()
+      .then(setPosts)
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
-    <div className="bg-cream-50">
-      <section className="border-b border-forest-100 bg-white">
+    <div className="bg-white">
+      <section className="border-b border-charcoal-200">
         <div className="container-page py-14 md:py-20">
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h1 className="font-display text-4xl text-charcoal-900 sm:text-5xl">
             Farm updates
           </h1>
-          <p className="prose-farm mt-4 max-w-2xl text-lg">
-            News, insights, and stories from Agritech Farmstead.
+          <p className="mt-4 max-w-2xl text-base text-charcoal-600">
+            News and practical notes from Agritech Farmstead.
           </p>
         </div>
       </section>
 
-      <section className="section-padding">
-        <div className="container-page">
-          {posts.length === 0 ? (
-            <p className="text-center text-charcoal-600">
-              No posts published yet.
-            </p>
-          ) : (
-            <div className="grid gap-8 md:grid-cols-2">
-              {posts.map((post) => (
-                <article
-                  key={post.id}
-                  className="overflow-hidden rounded-lg border border-forest-100 bg-white"
-                >
-                  <Link to={`/blog/${post.slug}`}>
-                    <div className="aspect-[16/10] overflow-hidden bg-forest-50">
+      <section className="container-page py-14 md:py-20">
+        {loading ? (
+          <p className="text-charcoal-500">Loading…</p>
+        ) : posts.length === 0 ? (
+          <p className="text-charcoal-500">No posts published yet.</p>
+        ) : (
+          <div className="grid gap-8 md:grid-cols-2">
+            {posts.map((post) => (
+              <article
+                key={post.id}
+                className="border border-charcoal-200 bg-white"
+              >
+                <Link to={`/blog/${post.slug}`}>
+                  <div className="aspect-[16/10] overflow-hidden bg-charcoal-50">
+                    {post.featuredImage ? (
                       <img
-                        src={post.featuredImage}
+                        src={resolveImageUrl(post.featuredImage)}
                         alt=""
-                        className="h-full w-full object-cover transition-transform hover:scale-105"
+                        className="h-full w-full object-cover"
                       />
-                    </div>
-                  </Link>
-                  <div className="p-6">
-                    <p className="text-xs font-medium uppercase tracking-wider text-forest-600">
-                      {post.category} · {formatDate(post.publishedAt)}
-                    </p>
-                    <h2 className="mt-2 text-xl font-semibold">
-                      <Link
-                        to={`/blog/${post.slug}`}
-                        className="hover:text-forest-800"
-                      >
-                        {post.title}
-                      </Link>
-                    </h2>
-                    <p className="mt-2 text-sm text-charcoal-600 line-clamp-2">
-                      {post.excerpt}
-                    </p>
+                    ) : null}
                   </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </div>
+                </Link>
+                <div className="p-5">
+                  <p className="text-xs text-charcoal-500">
+                    {post.publishedAt ? formatDate(post.publishedAt) : ''}
+                    {post.category ? ` · ${post.category}` : ''}
+                  </p>
+                  <Link to={`/blog/${post.slug}`}>
+                    <h2 className="mt-2 text-lg font-semibold text-charcoal-900 hover:underline">
+                      {post.title}
+                    </h2>
+                  </Link>
+                  <p className="mt-2 text-sm text-charcoal-600">{post.excerpt}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
