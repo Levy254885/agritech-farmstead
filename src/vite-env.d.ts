@@ -12,6 +12,8 @@ interface ImportMetaEnv {
   readonly VITE_PHONE_NUMBER: string;
   readonly VITE_BUSINESS_EMAIL: string;
   readonly VITE_FARM_LOCATION: string;
+  readonly VITE_CLOUDINARY_CLOUD_NAME: string;
+  readonly VITE_CLOUDINARY_UPLOAD_PRESET: string;
 }
 
 interface ImportMeta {
