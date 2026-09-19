@@ -9,6 +9,7 @@ const links = [
   { to: '/admin/products', label: 'Products' },
   { to: '/admin/orders', label: 'Orders' },
   { to: '/admin/content', label: 'Content' },
+  { to: '/admin/blogs', label: 'Blog' },
 ];
 
 export function AdminLayout() {
