@@ -3,7 +3,7 @@ import { SITE, whatsappUrl, telUrl } from '@/lib/site';
 
 const farmLinks = [
   { to: '/about', label: 'About' },
-  { to: '/dairy-farming', label: 'Dairy farming' },
+  { to: '/dairy-farming', label: 'Livestock' },
   { to: '/farm', label: 'The farm' },
   { to: '/sustainability', label: 'Sustainability' },
 ];
@@ -32,12 +32,12 @@ export function Footer() {
               Agritech Farmstead
             </p>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-charcoal-600">
-              Dairy farm and farm products. Orders confirmed by phone or
+              Livestock and farm products. Orders confirmed by phone or
               WhatsApp.
             </p>
             <p className="mt-4 text-sm text-charcoal-700">
               <a href={telUrl()} className="hover:underline">
-                {SITE.phoneDisplay}
+                Call {SITE.phoneDisplay}
               </a>
               <span className="mx-2 text-charcoal-400">·</span>
               <a
@@ -46,7 +46,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="hover:underline"
               >
-                WhatsApp
+                WhatsApp {SITE.whatsappDisplay}
               </a>
             </p>
           </div>
