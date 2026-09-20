@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { SITE, whatsappUrl, telUrl } from '@/lib/site';
+import { SITE, whatsappUrl, telUrl, mailtoUrl } from '@/lib/site';
 import { MessageCircle, Phone } from 'lucide-react';
 
 export function Contact() {
@@ -32,7 +32,7 @@ export function Contact() {
             <h2 className="text-xl font-semibold">Get in touch</h2>
             <dl className="mt-6 space-y-4 text-sm">
               <div>
-                <dt className="font-medium text-charcoal-900">Phone</dt>
+                <dt className="font-medium text-charcoal-900">Phone (calls)</dt>
                 <dd className="mt-1">
                   <a href={telUrl()} className="text-forest-700 hover:text-forest-900">
                     {SITE.phoneDisplay}
@@ -48,13 +48,17 @@ export function Contact() {
                     rel="noopener noreferrer"
                     className="text-forest-700 hover:text-forest-900"
                   >
-                    {SITE.phoneDisplay}
+                    {SITE.whatsappDisplay}
                   </a>
                 </dd>
               </div>
               <div>
                 <dt className="font-medium text-charcoal-900">Email</dt>
-                <dd className="mt-1 text-charcoal-600">{SITE.email}</dd>
+                <dd className="mt-1 text-charcoal-600">
+                  <a href={mailtoUrl()} className="hover:underline">
+                    {SITE.email}
+                  </a>
+                </dd>
               </div>
               <div>
                 <dt className="font-medium text-charcoal-900">Location</dt>
@@ -80,10 +84,6 @@ export function Contact() {
                 <Phone className="h-4 w-4" />
                 Call {SITE.phoneDisplay}
               </a>
-            </div>
-
-            <div className="mt-8 rounded-lg border border-dashed border-forest-200 bg-white p-6 text-sm text-charcoal-500">
-              Google Maps embed placeholder — add map when location is confirmed.
             </div>
           </div>
 
