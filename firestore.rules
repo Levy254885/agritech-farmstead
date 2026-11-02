@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() { return request.auth != null && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+
+    match /admins/{uid} { allow read: if request.auth != null && request.auth.uid == uid; allow write: if false; }
+    match /products/{id} { allow read: if true; allow write: if isAdmin(); }
+    match /orders/{id} {
+      allow create: if request.auth != null && request.resource.data.uid == request.auth.uid && request.resource.data.status == "new";
+      allow read: if isAdmin() || (request.auth != null && resource.data.uid == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+    match /messages/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['name','phone','text','createdAt']) && request.resource.data.text.size() < 1000;
+      allow read, update, delete: if isAdmin();
+    }
+    match /reviews/{id} {
+      allow read: if resource.data.approved == true || isAdmin();
+      allow create: if request.auth != null && request.resource.data.uid == request.auth.uid && request.resource.data.approved == false;
+      allow update, delete: if isAdmin();
+    }
+  }
+}

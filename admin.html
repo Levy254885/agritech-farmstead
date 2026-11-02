@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>Admin | Agritech Farmstead</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<div class="top"><div class="w"><div>Admin dashboard</div><a href="index.html">← Back to store</a></div></div>
+<main class="w" style="padding-bottom:50px">
+  <section id="login" class="box" style="max-width:380px;margin:50px auto"><h3 style="color:var(--gd);margin-bottom:12px">Staff sign in</h3>
+    <form class="f" id="lf"><input name="email" type="email" placeholder="Email" required><input name="pw" type="password" placeholder="Password" required><div class="err" id="le"></div><button class="btn g">Sign in</button></form></section>
+  <section id="app" hidden>
+    <div class="tabs" id="tabs"><button data-t="products" class="on">Products</button><button data-t="orders">Orders</button><button data-t="reviews">Reviews</button><button data-t="messages">Messages</button><button id="out" style="margin-left:auto">Sign out</button></div>
+    <div id="products">
+      <form class="box f" id="pf"><h3 id="pft" style="color:var(--gd)">Add product</h3><input type="hidden" name="id">
+        <div class="two"><input name="name" placeholder="Name" required><select name="cat" id="pc"></select></div>
+        <div class="two"><input name="price" type="number" min="0" placeholder="Price in KES (0 = ask for price)" required><input name="unit" placeholder="Unit e.g. per kg, per tray"></div>
+        <div class="two"><select name="badge"><option value="">No badge</option><option>Fresh</option><option>Hot</option></select></div>
+        <input name="desc" placeholder="Short description"><label class="row" style="align-items:center"><input type="checkbox" name="inStock" checked style="width:auto"> In stock</label>
+        <div class="row" style="align-items:center"><input type="file" id="pfile" accept="image/*" style="flex:1"><img id="prev" alt="" style="width:56px;height:56px;object-fit:cover;border-radius:8px" hidden></div>
+        <input type="hidden" name="image"><div class="err" id="pe"></div>
+        <div class="row"><button class="btn g">Save product</button><button type="button" class="btn s" id="pcancel" style="background:#777">Clear</button><button type="button" class="btn s" id="seed">Load starter products</button></div></form>
+      <table class="tbl" style="margin-top:16px"><thead><tr><th></th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th></th></tr></thead><tbody id="pl"></tbody></table></div>
+    <div id="orders" hidden><table class="tbl"><thead><tr><th>Date</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th></tr></thead><tbody id="ol"></tbody></table></div>
+    <div id="reviews" hidden><table class="tbl"><thead><tr><th>Name</th><th>Rating</th><th>Review</th><th></th></tr></thead><tbody id="rl"></tbody></table></div>
+  <div id="messages" hidden><table class="tbl"><thead><tr><th>Date</th><th>From</th><th>Message</th><th></th></tr></thead><tbody id="ml"></tbody></table></div>
+  </section><div id="deny" class="box" hidden style="max-width:520px;margin:40px auto">This account is not an admin. Add its UID to the <b>admins</b> collection in Firestore (see README), then reload.</div>
+</main><div class="toast" id="ts"></div>
+<script type="module" src="js/admin.js"></script></body></html>
