@@ -1,3 +1,29 @@
+/* ===================== IMAGE MAP (the only place photos are wired) =====================
+   Set IMG_DIR to the folder your photos live in (relative to index.html).
+   If your file names differ, change just the file name on the right-hand side.
+   For Cloudinary, replace a value with the full https://res.cloudinary.com/... URL. */
+const IMG_DIR = "images/";
+export const IMG = {
+  beef: IMG_DIR + "beef.jpg",
+  broiler: IMG_DIR + "broiler.jpg",
+  chevon: IMG_DIR + "chevon.jpg",
+  ducks: IMG_DIR + "ducks.jpg",
+  eggs: IMG_DIR + "eggs.jpg",
+  hero_chicken: IMG_DIR + "hero-chicken.jpg",
+  hero_dairy: IMG_DIR + "hero-dairy.jpg",
+  hero_ducks: IMG_DIR + "hero-ducks.jpg",
+  hero_pigs: IMG_DIR + "hero-pigs.jpg",
+  kienyeji: IMG_DIR + "kienyeji.jpg",
+  mala: IMG_DIR + "mala.jpg",
+  milk: IMG_DIR + "milk.jpg",
+  pigs: IMG_DIR + "pigs.jpg",
+  pork: IMG_DIR + "pork.jpg",
+  promo_dairy: IMG_DIR + "promo-dairy.jpg",
+  promo_meat: IMG_DIR + "promo-meat.jpg",
+  promo_poultry: IMG_DIR + "promo-poultry.jpg",
+  yoghurt: IMG_DIR + "yoghurt.jpg"
+};
+
 /* ===== EDIT THIS FILE: keys, contact details and starter content ===== */
 export const FIREBASE = {
   apiKey: "YOUR_API_KEY",
@@ -12,9 +38,9 @@ export const CLOUDINARY = { cloudName: "YOUR_CLOUD_NAME", uploadPreset: "YOUR_UN
 
 export const SITE = {
   name: "Agritech Farmstead",
-  whatsapp: "254700000000",          // no + or spaces
-  phone: "+254 700 000 000",
-  email: "hello@agritechfarmstead.co.ke",
+  whatsapp: "254758342670",          // no + or spaces
+  phone: "0758 342 670",
+  email: "agritechfarmstead@gmail.com",
   location: "Kenya",
   tagline: "Fresh from the farm to your table",
   about: "Agritech Farmstead raises dairy cattle, pigs, goats, chickens and ducks on one farm. We keep our animals healthy and our process simple, from feeding to the final cut. Whether you want a litre of milk, a tray of eggs or meat for the weekend, you buy direct from the people who raised it.",
@@ -23,36 +49,36 @@ export const SITE = {
 
 // Hero slides. Paste Cloudinary image URLs in `image` (or leave "" for a colour background).
 export const SLIDES = [
-  { tag: "Dairy",   title: "Fresh milk from our own herd",     text: "Chilled, clean and delivered the same day.",          image: "images/hero-dairy.jpg", color: "#1f6b3a", cat: "Dairy" },
-  { tag: "Pigs",    title: "Quality pork, raised with care",    text: "Fresh pork cut to order at KES 600 per kg.",          image: "images/hero-pigs.jpg", color: "#6b4a2f", cat: "Pork" },
-  { tag: "Chicken", title: "Kienyeji and broiler chicken",      text: "Free-range kienyeji, fresh broilers and farm eggs.",  image: "images/hero-chicken.jpg", color: "#8a5a12", cat: "Poultry" },
-  { tag: "Ducks",   title: "Healthy ducks from our ponds",      text: "Raised on open water and grass. Ask for availability.", image: "images/hero-ducks.jpg", color: "#245b73", cat: "Ducks" }
+  { tag: "Dairy",   title: "Fresh milk from our own herd",     text: "Chilled, clean and delivered the same day.",          image: IMG.hero_dairy, color: "#1f6b3a", cat: "Dairy" },
+  { tag: "Pigs",    title: "Quality pork, raised with care",    text: "Fresh pork cut to order at KES 600 per kg.",          image: IMG.hero_pigs, color: "#6b4a2f", cat: "Pork" },
+  { tag: "Chicken", title: "Kienyeji and broiler chicken",      text: "Free-range kienyeji, fresh broilers and farm eggs.",  image: IMG.hero_chicken, color: "#8a5a12", cat: "Poultry" },
+  { tag: "Ducks",   title: "Healthy ducks from our ponds",      text: "Raised on open water and grass. Ask for availability.", image: IMG.hero_ducks, color: "#245b73", cat: "Ducks" }
 ];
 
 export const PROMOS = [
-  { small: "Dairy",   title: "Fresh milk, every morning",   btn: "Shop dairy",   cat: "Dairy",   image: "", color: "#2e7d4f" },
-  { small: "Meat",    title: "Beef, pork and chevon",       btn: "Shop meat",    cat: "Beef",    image: "", color: "#8a3b2e" },
-  { small: "Poultry", title: "Kienyeji chicken and eggs",   btn: "Shop poultry", cat: "Poultry", image: "images/promo-poultry.jpg", color: "#b0741c" }
+  { small: "Dairy",   title: "Fresh milk, every morning",   btn: "Shop dairy",   cat: "Dairy",   image: IMG.promo_dairy, color: "#2e7d4f" },
+  { small: "Meat",    title: "Beef, pork and chevon",       btn: "Shop meat",    cat: "Beef",    image: IMG.promo_meat, color: "#8a3b2e" },
+  { small: "Poultry", title: "Kienyeji chicken and eggs",   btn: "Shop poultry", cat: "Poultry", image: IMG.promo_poultry, color: "#b0741c" }
 ];
 
 export const CATEGORIES = [
-  { name: "Dairy", image: "images/milk.jpg" }, { name: "Beef", image: "images/beef.jpg" }, { name: "Pork", image: "images/pork.jpg" }, { name: "Goat (Chevon)", image: "images/chevon.jpg" },
-  { name: "Poultry", image: "images/kienyeji.jpg" }, { name: "Eggs", image: "images/eggs.jpg" }, { name: "Ducks", image: "images/ducks.jpg" }, { name: "Pigs (live)", image: "images/pigs.jpg" }
+  { name: "Dairy", image: IMG.milk }, { name: "Beef", image: IMG.beef }, { name: "Pork", image: IMG.pork }, { name: "Goat (Chevon)", image: IMG.chevon },
+  { name: "Poultry", image: IMG.kienyeji }, { name: "Eggs", image: IMG.eggs }, { name: "Ducks", image: IMG.ducks }, { name: "Pigs (live)", image: IMG.pigs }
 ];
 
 // Shown until products exist in Firestore. Admin > "Load starter products" copies these into the database.
 export const PRODUCTS = [
-  { name: "Fresh Milk",         cat: "Dairy",         price: 0,    unit: "",         badge: "Fresh", image: "images/milk.jpg", desc: "Fresh chilled milk. Ask for today's price." },
-  { name: "Mala (Fermented Milk)", cat: "Dairy",      price: 0,    unit: "",         badge: "Fresh", image: "images/mala.jpg", desc: "Traditional fermented milk, smooth and tangy. Ask for today's price." },
-  { name: "Yoghurt",            cat: "Dairy",         price: 0,    unit: "",         badge: "",      image: "images/yoghurt.jpg", desc: "Creamy farm yoghurt. Ask for flavours and prices." },
-  { name: "Beef",               cat: "Beef",          price: 650,  unit: "per kg",   badge: "Hot",   image: "images/beef.jpg", desc: "Fresh cuts from our own cattle." },
-  { name: "Pork",               cat: "Pork",          price: 600,  unit: "per kg",   badge: "Hot",   image: "images/pork.jpg", desc: "Clean pork, cut to order." },
-  { name: "Chevon (Goat Meat)", cat: "Goat (Chevon)", price: 850,  unit: "per kg",   badge: "",      image: "images/chevon.jpg", desc: "Tender goat meat." },
-  { name: "Kienyeji Chicken",   cat: "Poultry",       price: 1500, unit: "per kg",   badge: "Hot",   image: "images/kienyeji.jpg", desc: "Free-range chicken with the village taste." },
-  { name: "Broiler Chicken",    cat: "Poultry",       price: 500,  unit: "per kg",   badge: "Fresh", image: "images/broiler.jpg", desc: "Fresh broilers ready for the pot." },
-  { name: "Kienyeji Eggs",      cat: "Eggs",          price: 700,  unit: "per tray", badge: "Fresh", image: "images/eggs.jpg", desc: "Farm-fresh free-range eggs." },
-  { name: "Ducks",              cat: "Ducks",         price: 0,    unit: "",         badge: "",      image: "images/ducks.jpg", desc: "Live or dressed. Ask for availability." },
-  { name: "Pigs (live)",        cat: "Pigs (live)",   price: 0,    unit: "",         badge: "",      image: "images/pigs.jpg", desc: "Ask for breeds and prices." }
+  { name: "Fresh Milk",         cat: "Dairy",         price: 0,    unit: "",         badge: "Fresh", image: IMG.milk, desc: "Fresh chilled milk. Ask for today's price." },
+  { name: "Mala (Fermented Milk)", cat: "Dairy",      price: 0,    unit: "",         badge: "Fresh", image: IMG.mala, desc: "Traditional fermented milk, smooth and tangy. Ask for today's price." },
+  { name: "Yoghurt",            cat: "Dairy",         price: 0,    unit: "",         badge: "",      image: IMG.yoghurt, desc: "Creamy farm yoghurt. Ask for flavours and prices." },
+  { name: "Beef",               cat: "Beef",          price: 650,  unit: "per kg",   badge: "Hot",   image: IMG.beef, desc: "Fresh cuts from our own cattle." },
+  { name: "Pork",               cat: "Pork",          price: 600,  unit: "per kg",   badge: "Hot",   image: IMG.pork, desc: "Clean pork, cut to order." },
+  { name: "Chevon (Goat Meat)", cat: "Goat (Chevon)", price: 850,  unit: "per kg",   badge: "",      image: IMG.chevon, desc: "Tender goat meat." },
+  { name: "Kienyeji Chicken",   cat: "Poultry",       price: 0,    unit: "",          badge: "Hot",   image: IMG.kienyeji, desc: "Free-range chicken with the village taste. Inquire on WhatsApp for availability and price." },
+  { name: "Broiler Chicken",    cat: "Poultry",       price: 500,  unit: "per kg",   badge: "Fresh", image: IMG.broiler, desc: "Fresh broilers ready for the pot." },
+  { name: "Kienyeji Eggs",      cat: "Eggs",          price: 700,  unit: "per tray", badge: "Fresh", image: IMG.eggs, desc: "Farm-fresh free-range eggs." },
+  { name: "Ducks",              cat: "Ducks",         price: 0,    unit: "",         badge: "",      image: IMG.ducks, desc: "Live or dressed. Ask for availability." },
+  { name: "Pigs (live)",        cat: "Pigs (live)",   price: 0,    unit: "",         badge: "",      image: IMG.pigs, desc: "Ask for breeds and prices." }
 ];
 
 // ----- Sample copy for the extra sections. Edit freely. -----
