@@ -40,8 +40,8 @@ function render() {
   $("#gt").textContent = q ? `Results for "${q}"` : cat === "All" ? "Top selling products" : cat; $("#gc").textContent = list.length + " item" + (list.length === 1 ? "" : "s");
   $("#grid").innerHTML = list.length ? list.map(p => { const n = cart[p.id]?.qty || 0; return `<article class="card">${p.badge ? `<span class="bd ${p.badge === "Fresh" ? "f" : ""}">${esc(p.badge)}</span>` : ""}
     <div class="ph" data-v="${p.id}"><span class="phi">${ic("camera", 34)}</span>${p.image ? `<img src="${img(p.image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.remove()">` : ""}</div>
-    <div class="bo"><small>${esc(p.cat)}</small><h3 data-v="${p.id}" style="cursor:pointer">${esc(p.name)}</h3><div class="pr">${p.price > 0 ? kes(p.price) + ` <small>${esc(p.unit)}</small>` : "<small>Ask for price</small>"}</div>
-    <div class="ad">${p.price > 0 ? (n ? `<div class="qty"><button data-m="${p.id}" aria-label="Less">−</button><span>${n}</span><button data-a="${p.id}" aria-label="More">+</button></div>` : `<button class="btn g" data-a="${p.id}">Add to cart</button>`) : `<a class="btn g" href="${wa("Hello, I would like to ask about: " + p.name)}">Ask on WhatsApp</a>`}</div></div></article>` }).join("") : `<div class="em">Nothing matched. <button class="btn g s" data-c="All">See all products</button></div>`;
+    <div class="bo"><small>${esc(p.cat)}</small><h3 data-v="${p.id}" style="cursor:pointer">${esc(p.name)}</h3><div class="pr">${p.price > 0 ? kes(p.price) + ` <small>${esc(p.unit)}</small>` : "<small>Inquire for price</small>"}</div>
+    <div class="ad">${p.price > 0 ? (n ? `<div class="qty"><button data-m="${p.id}" aria-label="Less">−</button><span>${n}</span><button data-a="${p.id}" aria-label="More">+</button></div>` : `<button class="btn g" data-a="${p.id}">Add to cart</button>`) : `<a class="btn g" href="${wa("Hello, I would like to inquire about: " + p.name)}">Inquire on WhatsApp</a>`}</div></div></article>` }).join("") : `<div class="em">Nothing matched. <button class="btn g s" data-c="All">See all products</button></div>`;
 }
 async function loadProducts() {
   if (!configured) return;
@@ -99,16 +99,24 @@ $("#myo").onclick = async e => {
     l.innerHTML = rows.length ? rows.map(o => `<div class="ln"><div><strong>${kes(o.total)}</strong><small>${o.items.map(i => i.qty + " x " + esc(i.name)).join(", ")}</small></div><span class="tag" style="background:var(--g);color:#fff;border-radius:99px;padding:2px 10px;height:fit-content">${esc(o.status)}</span></div>`).join("") : "No orders yet." } catch (er) { l.textContent = er.message }
 };
 
-/* reviews */
+/* reviews: open to everyone, no sign-up, appear instantly */
 const stars = n => "★".repeat(n) + "☆".repeat(5 - n);
+let reviews = [];
+function drawReviews() {
+  $("#rvg").innerHTML = reviews.length ? reviews.map(x => `<div class="rv"><div class="st">${stars(x.rating)}</div><p>${esc(x.text)}</p><small>Farm visitor</small></div>`).join("") : `<div class="em"><strong>Be our first reviewer</strong><p style="color:var(--mut)">Bought from us or visited the farm? Tell us below. No sign-up needed.</p></div>`;
+}
 async function loadReviews() {
-  if (!configured) return $("#rvg").innerHTML = `<div class="em"><strong>Be our first reviewer</strong></div>`;
-  try { const s = await F.getDocs(F.query(F.collection(db, "reviews"), F.where("approved", "==", true))); const r = s.docs.map(d => d.data());
-    $("#rvg").innerHTML = r.length ? r.map(x => `<div class="rv"><div class="st">${stars(x.rating)}</div><p>${esc(x.text)}</p><small>${esc(x.name)}</small></div>`).join("") : `<div class="em"><strong>Be our first reviewer</strong><p style="color:var(--mut)">Bought from us or visited the farm? Tell us below.</p></div>` } catch (e) { }
+  if (!configured) { try { reviews = JSON.parse(localStorage.getItem("fs-reviews") || "[]") } catch (e) { } return drawReviews() }
+  try { const s = await F.getDocs(F.query(F.collection(db, "reviews"), F.orderBy("createdAt", "desc"), F.limit(30))); reviews = s.docs.map(d => d.data()); } catch (e) { console.warn(e.message) }
+  drawReviews();
 }
 $("#rf").onsubmit = async e => {
-  e.preventDefault(); if (!user) { authMode(false); panel($("#am"), true); return toast("Please sign in to review") } const f = new FormData(e.target);
-  try { await F.addDoc(F.collection(db, "reviews"), { uid: user.uid, name: user.displayName || user.email.split("@")[0], rating: +f.get("rating"), text: f.get("text"), approved: false, createdAt: F.serverTimestamp() }); e.target.reset(); toast("Thanks! Your review will show once approved.") } catch (er) { toast(er.message) }
+  e.preventDefault(); const f = new FormData(e.target), r = { rating: +f.get("rating"), text: String(f.get("text")).trim().slice(0, 500) }; if (!r.text) return;
+  try {
+    if (configured) await F.addDoc(F.collection(db, "reviews"), { ...r, createdAt: F.serverTimestamp() });
+    else localStorage.setItem("fs-reviews", JSON.stringify([r, ...reviews]));
+    reviews.unshift(r); drawReviews(); e.target.reset(); toast("Thanks for your review!");
+  } catch (er) { toast("Could not post review: " + er.message) }
 };
 
 /* events */
@@ -134,7 +142,7 @@ $("#faqs").innerHTML = FAQ.map(x => `<details class="box" style="margin-bottom:1
 function openProduct(id) {
   const p = products.find(x => x.id === id); if (!p) return; const n = cart[id]?.qty || 0;
   $("#pm").innerHTML = `<div class="pd">${p.image ? `<img src="${img(p.image, 700)}" alt="${esc(p.name)}" onerror="this.remove()">` : `<div class="ph" style="border-radius:12px"><span class="phi">${ic("camera", 44)}</span></div>`}<div><small style="color:var(--mut)">${esc(p.cat)}</small><h3 style="font-size:22px;margin:4px 0">${esc(p.name)}</h3><p style="color:var(--mut)">${esc(p.desc || "")}</p>
-  <div class="pr" style="font-size:24px;margin:12px 0">${p.price > 0 ? kes(p.price) + ` <small>${esc(p.unit)}</small>` : "<small>Ask for price</small>"}</div>
+  <div class="pr" style="font-size:24px;margin:12px 0">${p.price > 0 ? kes(p.price) + ` <small>${esc(p.unit)}</small>` : "<small>Inquire for price</small>"}</div>
   ${p.price > 0 ? `<button class="btn g" data-a="${p.id}" style="width:100%">Add to cart${n ? " (" + n + " in cart)" : ""}</button>` : ""}
   <a class="btn" style="width:100%;display:block;margin-top:8px" href="${wa("Hello, I would like to order: " + p.name)}">Order on WhatsApp</a></div></div>`;
   closeAll(); panel($("#pm"), true);
