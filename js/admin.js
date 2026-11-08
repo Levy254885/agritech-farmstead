@@ -50,6 +50,6 @@ function drawOrders(docs) {
 $("#ol").onchange = async e => { if (e.target.dataset.o) { await F.updateDoc(F.doc(db, "orders", e.target.dataset.o), { status: e.target.value }); toast("Status updated") } };
 
 function drawReviews(docs) {
-  $("#rl").innerHTML = docs.map(d => { const r = d.data(); return `<tr><td>${esc(r.name)}</td><td>${"★".repeat(r.rating)}</td><td>${esc(r.text)}</td><td class="row">${r.approved ? "<small>Live</small>" : `<button class="btn g s" data-ap="${d.id}">Approve</button>`}<button class="btn r s" data-rd="${d.id}">Delete</button></td></tr>` }).join("") || `<tr><td colspan="4">No reviews yet.</td></tr>`;
+  $("#rl").innerHTML = docs.map(d => d.data() && { id: d.id, ...d.data() }).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)).map(r => `<tr><td>Visitor</td><td>${"★".repeat(r.rating)}</td><td>${esc(r.text)}</td><td class="row"><button class="btn r s" data-rd="${r.id}">Delete</button></td></tr>`).join("") || `<tr><td colspan="4">No reviews yet.</td></tr>`;
 }
-$("#rl").onclick = async e => { const a = e.target.dataset.ap, d = e.target.dataset.rd; if (a) await F.updateDoc(F.doc(db, "reviews", a), { approved: true }); if (d && confirm("Delete review?")) await F.deleteDoc(F.doc(db, "reviews", d)) };
+$("#rl").onclick = async e => { const a = e.target.dataset.ap, d = e.target.dataset.rd; if (d && confirm("Delete review?")) await F.deleteDoc(F.doc(db, "reviews", d)) };
